@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.entity.Customer;
+import project.entity.Request;
 import project.response.ApiResponse;
 import project.response.CustomerSpecificResp;
 import project.response.EmailRequestDto;
 import project.response.LoginRequestDto;
 import project.service.CustomerService;
+import project.service.RequestService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -31,6 +33,9 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private RequestService requestService;
 
 //	@Autowired
 //	private EmailService emailService;
@@ -82,6 +87,11 @@ public class CustomerController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
 		}
+	}
+	
+	@PostMapping("/request")
+	public Request addNewRequest(@RequestBody @Valid Request request) {
+		return requestService.addNewRequest(request);
 	}
 
 }

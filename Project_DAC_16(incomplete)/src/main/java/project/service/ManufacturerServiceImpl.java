@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.entity.Manufacturer;
-import project.entity.Request;
 import project.exception.ResourceNotFoundException;
 import project.repository.CustomerRepository;
 import project.repository.ManufacturerRepository;
@@ -86,17 +85,6 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 		Manufacturer m = manufacturerRepo.findByEmail(dto.getEmail())
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email ID or Password"));
 		return mapper.map(m, ManufacturerSpecificResp.class);
-	}
-
-	@Override
-	public List<Request> requestsForManufacturer(ManufacturerSpecificResp manufacturer) {
-
-		Long id = manufacturer.getId();
-
-		Manufacturer m = manufacturerRepo.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid Manufacturer ID"));
-
-		return reqRepo.findByManufacturer(m);
 	}
 
 }

@@ -24,6 +24,7 @@ import project.response.EmailRequestDto;
 import project.response.LoginRequestDto;
 import project.response.ManufacturerSpecificResp;
 import project.service.ManufacturerService;
+import project.service.RequestService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -33,6 +34,9 @@ public class ManufacturerController {
 
 	@Autowired
 	private ManufacturerService manufacturerService;
+	
+	@Autowired
+	private RequestService requestService;
 
 //	@Autowired
 //	private EmailService emailService;
@@ -95,9 +99,12 @@ public class ManufacturerController {
 	@GetMapping("/requests")
 	public ResponseEntity<?> requestsForManufactrer(@RequestBody ManufacturerSpecificResp manufacturer) {
 		try {
-			return ResponseEntity.ok(manufacturerService.requestsForManufacturer(manufacturer));
+			return ResponseEntity.ok(requestService.requestsForManufacturer(manufacturer));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
 		}
 	}
+	
+//	@PutMapping("/request")
+//	public 
 }
