@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "../API/axios";
 import NavBar from "./NavBar";
 
-const SignUpForm = () => {
+const SignUpFormManufacturer = () => {
 
-    const [fname, setFName] = useState("");
-    const [lname, setLName] = useState("");
+    const[brandName, setbrandName] = useState("");
+    
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [addressLine1, setAddressLine1] = useState("");
@@ -21,9 +21,8 @@ const SignUpForm = () => {
 
     async function register(event) {
         event.preventDefault();
-        console.log(fname, lname, password, email, mobileNumber);
-        setFName("");
-        setLName("");
+        console.log(brandName, password, email, mobileNumber);
+        setbrandName("");
         setPassword("");
         setEmail("");
         setAddressLine1("");
@@ -32,7 +31,7 @@ const SignUpForm = () => {
         setState("");
         setPinCode("");
         setMobileNumber(0);
-        setType("CUSTOMER");
+        setType("MANUFACTURER");
         let address = {
             addressLine1: addressLine1,
             addressLine2: addressLine2,
@@ -40,15 +39,13 @@ const SignUpForm = () => {
             state: state,
             pinCode: pinCode
         };
-        const obj = { firstName: fname, lastName: lname, address: address, email: email, password: password, mobileNumber: mobileNumber, type: type };
-        const response = await axios.post("/customer/register", JSON.stringify(obj),
+        const obj = { brandName: brandName, address: address, email: email, password: password, mobileNumber: mobileNumber, type: type };
+        const response = await axios.post("/manufacturer/register", JSON.stringify(obj),
                 {
                     headers: { "Content-Type": 'application/json' }
                 });
         console.log(response);
-    
-        navigate('/customer');
-        
+        navigate('/manufacturer');
     }
 
     return (
@@ -57,13 +54,10 @@ const SignUpForm = () => {
                 <form onSubmit={register}>
                     
                     <div className="row">
+                        
                         <div className="col">
-                            <label htmlFor="fname">First Name: </label><br />
-                            <input type="text" onChange={(e => setFName(e.target.value))} id="fname" className="form-control" placeholder="First name" required/>
-                        </div>
-                        <div className="col">
-                            <label htmlFor="lname">Last Name: </label><br />
-                            <input type="text" id="lname" onChange={(e => setLName(e.target.value))} className="form-control" placeholder="Last name" required/>
+                            <label htmlFor="brandName">Brand Name: </label><br />
+                            <input type="text" id="brandName" onChange={(e => setbrandName(e.target.value))} className="form-control" placeholder="Brand name" required/>
                         </div>
                     </div>
                     <br />
@@ -121,4 +115,4 @@ const SignUpForm = () => {
     );
 }
 
-export default SignUpForm;
+export default SignUpFormManufacturer;

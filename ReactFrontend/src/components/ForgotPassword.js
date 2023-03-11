@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try{
-        response = await axios.post("/customer/getbymail",JSON.stringify({email}),{
+        response = await axios.post("/customer/forgot",JSON.stringify({email}),{
             headers: { "Content-Type": 'application/json' }
         });
         // console.log(response.data);

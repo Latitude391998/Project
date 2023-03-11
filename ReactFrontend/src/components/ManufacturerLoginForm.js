@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../API/axios";
 import AuthContext from "../context/AuthProvider"
 
-const LoginForm = () => {
+const ManufacturerLoginForm = () => {
     const userRef = useRef();
     const { setAuth } = useContext(AuthContext);
     const [email, setEmail] = useState("");
@@ -23,11 +23,10 @@ const LoginForm = () => {
                     headers: { "Content-Type": 'application/json' }
                 });
                 
-            if (response?.data.type === "CUSTOMER") {
-                localStorage.setItem("customer_info",JSON.stringify((await response).data));
-                navigate('/customer/profile');
+            if (response?.data.type === "MANUFACTURER") {
+                localStorage.setItem("manufacturer_info",JSON.stringify((await response).data));
+                navigate('/manufacturer/profile');
             }
-            
         } catch (error) {
             setMsg("Invalid Email Id or Password");
         }
@@ -68,7 +67,7 @@ const LoginForm = () => {
                         <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
 
                         <div className="text-center">
-                            <p>Not a member? <button onClick={() => navigate('/customer/register')}>Register</button></p>
+                            <p>Not a member? <button onClick={() => navigate('/manufacturer/register')}>Register</button></p>
                         </div>
                     </form>
                 </div>
@@ -76,4 +75,4 @@ const LoginForm = () => {
     );
 }
 
-export default LoginForm;
+export default ManufacturerLoginForm;
